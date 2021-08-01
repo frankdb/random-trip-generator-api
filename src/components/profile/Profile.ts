@@ -2,21 +2,12 @@ export {};
 const Sequelize = require("sequelize");
 const db = require("../../config/database");
 
-const User = db.define("profile", {
+const Profile = db.define("profile", {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
     allowNull: false,
-  },
-  currentPosition: {
-    type: Sequelize.STRING,
-  },
-  company: {
-    type: Sequelize.STRING,
-  },
-  website: {
-    type: Sequelize.STRING,
   },
   city: {
     type: Sequelize.STRING,
@@ -24,15 +15,12 @@ const User = db.define("profile", {
   country: {
     type: Sequelize.STRING,
   },
-  photo: {
-    type: Sequelize.STRING,
-  },
   bio: {
     type: Sequelize.TEXT,
   },
-  githubUsername: {
+  photo: {
     type: Sequelize.STRING,
   },
 });
 
-module.exports = User;
+module.exports = Profile;

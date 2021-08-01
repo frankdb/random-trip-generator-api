@@ -34,6 +34,8 @@ exports.getCurrentUserProfile = async (req: any, res: Response) => {
   }
 };
 
+// POST api/profile/
+
 exports.createOrUpdateUserProfile = async (req: any, res: Response) => {
   const profileData = req.body;
 

@@ -20,23 +20,22 @@ exports.signupUser = async (req: Request, res: Response) => {
         email,
         password,
         name
-        // userType
       );
       console.log("token=======", { token });
-      // res.status(200).json({ token });
+      res.status(200).json({ token });
 
-      res.setHeader(
-        "Set-Cookie",
-        cookie.serialize("auth", token, {
-          httpOnly: true,
-          // secure: process.env.NODE_ENV !== "development",
-          secure: false,
-          // sameSite: "strict",
-          maxAge: 3600,
-          path: "http://localhost:8080/signup",
-        })
-      );
-      res.status(200).send("token sent");
+      // res.setHeader(
+      //   "Set-Cookie",
+      //   cookie.serialize("auth", token, {
+      //     httpOnly: true,
+      //     // secure: process.env.NODE_ENV !== "development",
+      //     secure: false,
+      //     // sameSite: "strict",
+      //     maxAge: 3600,
+      //     path: "http://localhost:8080/signup",
+      //   })
+      // );
+      // res.status(200).send("token sent");
     } else {
       res.status(400).json({ errors: [{ message: "Invalid credentials" }] });
     }
