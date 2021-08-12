@@ -11,12 +11,13 @@ const findUser = async (email: string) => {
     return user ? user : null;
   } catch (err) {
     console.error(err);
+    throw new Error(err);
   }
 };
 
 const findUserById = async (userId: number) => {
   try {
-    let user = await User.findOne({
+    const user = await User.findOne({
       where: { id: userId },
     });
     return user;
@@ -42,7 +43,7 @@ const signupUser = async (
     //   userTypeId = 2;
     // }
 
-    let newUser = await User.create({
+    const newUser = await User.create({
       email,
       password,
       name,
@@ -73,7 +74,7 @@ const signupUser = async (
     });
   } catch (err) {
     console.log(err);
-    throw Error("Error with sign up");
+    throw new Error("Error with sign up");
   }
 };
 

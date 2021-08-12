@@ -3,6 +3,10 @@ import { Request, Response } from "express";
 const User = require("./User");
 const userService = require("./UserService");
 
+// class UserController {
+
+// }
+
 /**
  * POST /api/user/signup
  * @param
@@ -73,5 +77,16 @@ exports.getCurrentUser = async (req: any, res: Response) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
+  }
+};
+
+exports.getUsers = async (req: Request, res: Response) => {
+  try {
+    const users = await User.findAll();
+    console.log("", users);
+    res.status(200).json(users);
+  } catch (err) {
+    console.error(err.message);
+    throw new Error(err);
   }
 };
