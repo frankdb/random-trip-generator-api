@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("./User");
 const profileService = require("../profile/ProfileService");
+import ProfileDAL from "../profile/ProfileDAL";
 
 const findUser = async (email: string) => {
   try {
@@ -36,24 +37,13 @@ const signupUser = async (
     const salt = await bcrypt.genSalt(10);
     password = await bcrypt.hash(password, salt);
 
-    // let userTypeId;
-    // if (userType === "JOB_SEEKER") {
-    //   userTypeId = 1;
-    // } else if (userType === "EMPLOYER") {
-    //   userTypeId = 2;
-    // }
-
     const newUser = await User.create({
       email,
       password,
       name,
-      // userTypeId,
-      // is_active: true,
-      // sms_notification_active: false,
-      // email_notification_active: false,
     });
 
-    await profileService.createProfileForUser(newUser.dataValues.id);
+    await ProfileDAL.createProfile(newUser.dataValues.id);
 
     const payload = {
       user: {

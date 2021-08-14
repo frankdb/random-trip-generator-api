@@ -15,9 +15,6 @@ const Profile = db.define("profile", {
   bio: {
     type: Sequelize.TEXT,
   },
-  photo: {
-    type: Sequelize.STRING,
-  },
   places_visited: {
     type: Sequelize.STRING,
   },

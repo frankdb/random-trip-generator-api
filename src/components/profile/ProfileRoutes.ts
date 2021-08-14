@@ -1,13 +1,13 @@
 import express, { Request, Response, NextFunction } from "express";
 const router = express.Router();
 const auth = require("../../middleware/auth");
-const profileController = require("./ProfileController");
-import { ProfileController } from "./ProfileController";
+// const profileController = require("./ProfileController");
+import ProfileController from "./ProfileController";
 // const fileUpload = require("../../middleware/fileUpload");
 
-// router.get("/me", auth, profileController.getCurrentUserProfile);
-// router.post("/", auth, profileController.createOrUpdateUserProfile);
+router.get("/", auth, ProfileController.getProfile);
 router.put("/", auth, ProfileController.updateProfile);
+// router.post("/", auth, profileController.createOrUpdateUserProfile);
 // router.post(
 //   "/photo",
 //   auth,
