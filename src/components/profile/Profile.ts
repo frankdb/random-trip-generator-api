@@ -9,16 +9,19 @@ const Profile = db.define("profile", {
     autoIncrement: true,
     allowNull: false,
   },
-  city: {
-    type: Sequelize.STRING,
-  },
-  country: {
+  location: {
     type: Sequelize.STRING,
   },
   bio: {
     type: Sequelize.TEXT,
   },
   photo: {
+    type: Sequelize.STRING,
+  },
+  places_visited: {
+    type: Sequelize.STRING,
+  },
+  bucket_list: {
     type: Sequelize.STRING,
   },
 });

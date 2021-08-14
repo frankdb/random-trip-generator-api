@@ -5,6 +5,8 @@ const session = require("express-session");
 const redis = require("redis");
 const connectRedis = require("connect-redis");
 const cookieParser = require("cookie-parser");
+const User = require("./components/user/User");
+const Profile = require("./components/profile/Profile");
 require("dotenv").config();
 
 const app: Application = express();
@@ -12,6 +14,9 @@ const PORT = process.env.PORT || 3000;
 
 const userRoutes = require("./components/user/UserRoutes");
 const profileRoutes = require("./components/profile/ProfileRoutes");
+
+User.hasOne(Profile);
+Profile.belongsTo(User);
 
 const RedisStore = connectRedis(session);
 

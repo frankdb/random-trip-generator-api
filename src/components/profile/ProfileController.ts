@@ -1,23 +1,29 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
+import ProfileDAL from "./ProfileDAL";
 const Profile = require("./Profile");
 const User = require("../user/User");
 
-exports.getProfileByUserId = async (req: any, res: Response) => {
-  try {
-    const userId = req.params.userId;
-    const profile = await Profile.findOne({
-      where: { userId: userId },
-      include: {
-        model: User,
-        attributes: ["name"],
-      },
-    });
-    if (!profile) {
-      return res.status(400).json({ msg: "There is no profile for this user" });
+export class ProfileController {
+  /**
+   * PUT api/profile
+   * Updates the user profile
+   * @param
+   * @return
+   */
+  static async updateProfile(req: any, res: Response, next: NextFunction) {
+    console.log(req.body);
+    const userId = req.user.id;
+    console.log("USER ID====", userId);
+    try {
+      // const profile = await ProfileDAL.getProfile(userId);
+      await Profile.updateProfile(userId, null);
+      // return res.json(profile);
+    } catch (err) {
+      console.error(err);
+      next(err);
     }
-    res.json(profile);
-  } catch (err) {}
-};
+  }
+}
 
 exports.getCurrentUserProfile = async (req: any, res: Response) => {
   try {
