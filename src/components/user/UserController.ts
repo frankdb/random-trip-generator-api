@@ -1,11 +1,19 @@
 require("dotenv").config();
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
+import UserDAL from "./UserDAL";
 const User = require("./User");
 const userService = require("./UserService");
 
-// class UserController {
-
-// }
+export class UserController {
+  // static async registerUser(req: any, res: Response, next: NextFunction) {
+  //   try {
+  //     await UserService.registerUser(email, password, name);
+  //   } catch (err) {
+  //     console.error(err);
+  //     next(err);
+  //   }
+  // }
+}
 
 /**
  * POST /api/user/signup
@@ -16,7 +24,7 @@ exports.signupUser = async (req: any, res: Response) => {
   const { email, password, name } = req.body;
 
   try {
-    const user = await userService.findUser(email);
+    const user = await UserDAL.findUserByEmail(email);
     if (!user) {
       const token = await userService.signupUser(email, password, name);
       req.session.something = true;
@@ -27,11 +35,6 @@ exports.signupUser = async (req: any, res: Response) => {
   } catch (err) {
     console.error(err);
     throw new Error(err);
-    // if (err.isJoi) {
-    //   return res.status(400).json({ errors: err.details });
-    // } else {
-    //   return res.status(500).json(err);
-    // }
   }
 };
 
@@ -41,7 +44,7 @@ exports.loginUser = async (req: any, res: Response) => {
   console.log("logging IN!!", req && req.session);
 
   try {
-    const user = await userService.findUser(email);
+    const user = await UserDAL.findUserByEmail(email);
     req.session.something = true;
 
     if (!user) {

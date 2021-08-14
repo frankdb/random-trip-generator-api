@@ -4,35 +4,14 @@ const User = require("./User");
 const profileService = require("../profile/ProfileService");
 import ProfileDAL from "../profile/ProfileDAL";
 
-const findUser = async (email: string) => {
-  try {
-    let user = await User.findOne({
-      where: { email },
-    });
-    return user ? user : null;
-  } catch (err) {
-    console.error(err);
-    throw new Error(err);
+export class UserService {
+  static async registerUser(email: string, password: string, name: string) {
+    try {
+    } catch (err) {}
   }
-};
+}
 
-const findUserById = async (userId: number) => {
-  try {
-    const user = await User.findOne({
-      where: { id: userId },
-    });
-    return user;
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-const signupUser = async (
-  email: string,
-  password: string,
-  name: string,
-  userType: string
-) => {
+const signupUser = async (email: string, password: string, name: string) => {
   try {
     const salt = await bcrypt.genSalt(10);
     password = await bcrypt.hash(password, salt);
@@ -70,8 +49,7 @@ const signupUser = async (
 
 const checkIfPasswordMatches = async (user: any, password: any) => {
   try {
-    const passwordsMatch = await bcrypt.compare(password, user.password);
-    return passwordsMatch;
+    return await bcrypt.compare(password, user.password);
   } catch (err) {
     console.error(err);
   }
@@ -102,9 +80,7 @@ const loginUser = async (user: any, password: string) => {
 };
 
 module.exports = {
-  findUser,
   signupUser,
   loginUser,
   checkIfPasswordMatches,
-  findUserById,
 };
