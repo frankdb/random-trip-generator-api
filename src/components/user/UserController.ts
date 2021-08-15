@@ -27,7 +27,9 @@ exports.signupUser = async (req: any, res: Response) => {
     const user = await UserDAL.findUserByEmail(email);
     if (!user) {
       const token = await userService.signupUser(email, password, name);
-      req.session.something = true;
+      const user = await UserDAL.findUserByEmail(email);
+      req.session.userId = user.id;
+      console.log("REQ SESSION====", req, req.session);
       res.status(200).json({ token });
     } else {
       res.status(400).json({ errors: [{ message: "Invalid credentials" }] });
@@ -40,12 +42,12 @@ exports.signupUser = async (req: any, res: Response) => {
 
 exports.loginUser = async (req: any, res: Response) => {
   let { email, password } = req.body;
+  req.session.isAuthenticated = true;
 
-  console.log("logging IN!!", req && req.session);
+  console.log("REQ SESSION IN LOGIN====", req.session);
 
   try {
     const user = await UserDAL.findUserByEmail(email);
-    req.session.something = true;
 
     if (!user) {
       res.status(401).json({ errors: [{ message: "Invalid credentials" }] });
@@ -86,7 +88,6 @@ exports.getCurrentUser = async (req: any, res: Response) => {
 exports.getUsers = async (req: Request, res: Response) => {
   try {
     const users = await User.findAll();
-    console.log("", users);
     res.status(200).json(users);
   } catch (err) {
     console.error(err.message);

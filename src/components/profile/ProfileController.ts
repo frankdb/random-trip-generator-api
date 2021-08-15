@@ -8,6 +8,10 @@ export default class ProfileController {
    */
   static async getProfile(req: any, res: Response, next: NextFunction) {
     const userId = req.user.id;
+    console.log(
+      "CHECKING FOR REQ SESSION IN PROFILE CONTROLLER - get profile====",
+      req.session
+    );
     try {
       const profile = await ProfileDAL.getProfile(userId);
       return res.json(profile);
@@ -23,6 +27,10 @@ export default class ProfileController {
    */
   static async updateProfile(req: any, res: Response, next: NextFunction) {
     const userId = req.user.id;
+    console.log(
+      "CHECKING FOR REQ SESSION IN PROFILE CONTROLLER - update profile====",
+      req.session
+    );
     const { profile } = req.body;
     try {
       const updatedProfile = await ProfileDAL.updateProfile(userId, profile);
