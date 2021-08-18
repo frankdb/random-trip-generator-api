@@ -13,6 +13,10 @@ export class UserController {
   //     next(err);
   //   }
   // }
+  // static async logoutUser(req: any, res: Response, next: NextFunction) {
+  //   try {
+  //   } catch (err) {}
+  // }
 }
 
 /**
@@ -93,4 +97,16 @@ exports.getUsers = async (req: Request, res: Response) => {
     console.error(err.message);
     throw new Error(err);
   }
+};
+
+exports.logoutUser = async (req: any, res: Response) => {
+  req.session.destroy(function (err: any) {
+    console.log("DESTROYED?", err);
+    if (err) {
+      console.error(err.message);
+      res.status(404);
+    } else {
+      res.status(200);
+    }
+  });
 };

@@ -33,7 +33,38 @@ redisClient.on("connect", function (err: any) {
   console.log("Connected to redis successfully");
 });
 
-app.use(cors({ credentials: true, origin: "http://localhost:8080" }));
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://localhost:8080",
+  })
+);
+
+// app.use(function (req, res, next) {
+//   // const allowedOrigins = [
+//   //   "http://localhost:8080",
+//   //   "http://localhost:8080/login",
+//   //   "http://localhost:3000",
+//   //   "http://localhost:3000/api/profile",
+//   // ];
+//   // const origin = req.headers.origin;
+//   // console.log("ORIGIN===", origin);
+//   // if (allowedOrigins.includes(origin)) {
+//   //   res.setHeader("Access-Control-Allow-Origin", origin);
+//   // }
+//   res.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
+//   res.setHeader(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept, x-auth-token"
+//   );
+//   res.setHeader(
+//     "Access-Control-Allow-Methods",
+//     "PUT, POST, GET, PATCH, DELETE, OPTIONS,"
+//   );
+//   // @ts-ignore
+//   res.setHeader("Access-Control-Allow-Credentials", true);
+//   next();
+// });
 
 // app.use(function (req, res, next) {
 //   // Website you wish to allow to connect
