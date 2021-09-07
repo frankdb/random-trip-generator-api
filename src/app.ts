@@ -6,15 +6,15 @@ const session = require("express-session");
 const redis = require("redis");
 const connectRedis = require("connect-redis");
 const cookieParser = require("cookie-parser");
-const User = require("./components/user/User");
-const Profile = require("./components/profile/Profile");
+const User = require("./modules/user/User");
+const Profile = require("./modules/profile/Profile");
 require("dotenv").config();
 
 const app: Application = express();
 const PORT = process.env.PORT || 3000;
 
-const userRoutes = require("./components/user/UserRoutes");
-const profileRoutes = require("./components/profile/ProfileRoutes");
+const userRoutes = require("./modules/user/UserRoutes");
+const profileRoutes = require("./modules/profile/ProfileRoutes");
 
 User.hasOne(Profile);
 Profile.belongsTo(User);
