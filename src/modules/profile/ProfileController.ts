@@ -17,7 +17,7 @@ export default class ProfileController {
       return res.json(profile);
     } catch (err) {
       console.error(err);
-      next(err);
+      return next(err);
     }
   }
 
@@ -37,7 +37,7 @@ export default class ProfileController {
       return res.status(200).json(updatedProfile);
     } catch (err) {
       console.error(err);
-      next(err);
+      return next(err);
     }
   }
 }

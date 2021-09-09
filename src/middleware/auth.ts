@@ -14,9 +14,9 @@ module.exports = (req: any, res: Response, next: NextFunction) => {
   try {
     const decoded = jwt.verify(token, process.env.jwtSecret);
     req.user = decoded.user;
-    next();
+    return next();
   } catch (err) {
-    res.status(401).json({ msg: "Token is not valid" });
+    return res.status(401).json({ msg: "Token is not valid" });
   }
 
   // if (req.session.userId) {

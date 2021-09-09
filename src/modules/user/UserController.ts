@@ -54,7 +54,9 @@ exports.loginUser = async (req: any, res: Response) => {
     const user = await UserDAL.findUserByEmail(email);
 
     if (!user) {
-      res.status(401).json({ errors: [{ message: "Invalid credentials" }] });
+      return res
+        .status(401)
+        .json({ errors: [{ message: "Invalid credentials" }] });
     } else {
       const passwordsMatch = await userService.checkIfPasswordMatches(
         user,
@@ -62,9 +64,11 @@ exports.loginUser = async (req: any, res: Response) => {
       );
       if (passwordsMatch) {
         const token = await userService.loginUser(user, password);
-        res.status(200).json({ token });
+        return res.status(200).json({ token });
       } else {
-        res.status(401).json({ errors: [{ message: "Invalid credentials" }] });
+        return res
+          .status(401)
+          .json({ errors: [{ message: "Invalid credentials" }] });
       }
     }
   } catch (err) {
