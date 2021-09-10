@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import ProfileDAL from "./ProfileDAL";
+import ProfileMapper from "./ProfileMapper";
 
 export default class ProfileController {
   /**
@@ -14,7 +15,8 @@ export default class ProfileController {
     );
     try {
       const profile = await ProfileDAL.getProfile(userId);
-      return res.json(profile);
+      const profileDTO = await ProfileMapper.toDTO(profile);
+      return res.json(profileDTO);
     } catch (err) {
       console.error(err);
       return next(err);

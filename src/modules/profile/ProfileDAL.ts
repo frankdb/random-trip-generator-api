@@ -1,11 +1,5 @@
 const Profile = require("./Profile");
 
-type Profile = {
-  bio: string;
-  bucket_list: string;
-  location: string;
-  places_visited: string;
-};
 export default class ProfileDAL {
   static async createProfile(userId: string) {
     try {
@@ -20,9 +14,6 @@ export default class ProfileDAL {
     try {
       return await Profile.findOne({
         where: { userId },
-        attributes: {
-          exclude: ["createdAt", "updatedAt", "userId"],
-        },
       });
     } catch (err) {
       console.error(err);
